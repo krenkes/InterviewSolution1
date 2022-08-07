@@ -1,4 +1,7 @@
 import {batch} from './batch.mjs'
+
+let batchNumber = "KMR0000001";
+
 //Weight of the molten metal in the ladle after removing the sample(although probably neglible and )
 let batchWeight = 1; 
 
@@ -14,7 +17,7 @@ let initial = {
     'Si': .6,
     'N' : .05,
     'Fe' : 81
-  };
+};
 
 //Input desired percentages of each element for the desired steel grade  
 const desired = {
@@ -30,6 +33,7 @@ const desired = {
     'Fe' : 65.49,
 };
 
-let currentbatch = batch.getAddWeight(batchWeight, initial, desired)
+let currentbatch = batch.getAddWeight(batchNumber, batchWeight, initial, desired)
 
+// console.log(currentbatch)
 // console.log(currentbatch.addWeightPerElement)

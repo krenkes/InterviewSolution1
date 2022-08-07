@@ -1,13 +1,28 @@
 let batch = {
+    batchNumber: null,
+    //The properties definitions are:
+    //batchWeight: Weight of the molten metal in the ladle after removing the sample(although probably neglible in most cases)
+    //initial: Initial Percentages for each element in the batch from sample
+    //desired: Desired Percentages for each element in the steel spec
+    //initialWeight:: Calculated weight of each element in the batch before any additional amount of material is added
+    //ratioMax: Maximum ratio initial%/desired% of all the elements
+    //finalWeight: Calculated weight for each element in the batch after adjustments have been made
+    //addWeightPerElement: Weight of each element to add to move from intital to desired chemical composition
+    //sumFinalWeight: Calculated weight of batch after adjustments have been made
+    //percentFinal: Calculated final chemical composition of batch
     batchWeight: null,
     initial: null,
     desired: null,
-    initialWeight: {},
-    ratioMax: 1,
+    initialWeight: {}, 
+    ratioMax: 1, 
     finalWeight: {},
-    addWeightPerElement: {},
-    sumFinalWeight: 0,
+    addWeightPerElement: {}, 
+    sumFinalWeight: null,
     percentFinal: {},
+    // The setCheckInputs method: 
+    // Populates the batchWeight, initial, and desired properties for the batch
+    // Checks initial and desired sum to 100%
+    // Checks to confirm the same elements are in both and that they are positive numbers
     setCheckInputs: function(batchWeight, initial, desired) {
         this.batchWeight = batchWeight
         this.initial = initial
@@ -19,7 +34,6 @@ let batch = {
             }
             return Math.round(sum*10000)/10000
         }
-        console.log(sumCheck(this.desired))
         if (sumCheck(this.initial) !== 100){
             return `Initial Percentages equal ${sumCheck(this.initial)}% and should total to 100%`
         } 
@@ -46,9 +60,12 @@ let batch = {
         return true
 
     },
+    // The getInitialWeight method:
+    // Runs the setCheckInputs method
+    // Calculates the inititalWeight of each element in the batch
+    // Calculates the ratioMax
     getInitialWeight: function(batchWeight, initial, desired) {
         let check = this.setCheckInputs(batchWeight, initial, desired)
-        console.log(check)
         if (check !== true) {
             return check
         }
@@ -61,7 +78,13 @@ let batch = {
         }
         return true
     },
-    getAddWeight: function(batchWeight, initial, desired) {
+    // The getAddWeight method:
+    // Sets the batchNumber
+    // Runs the getInitialWeight Method
+    // Calculates the sumFinalWeight, finalWeight, addWeightPerElement, and the percentFinal
+    // Console logs the addWeightPerElement  
+    getAddWeight: function(batchNumber, batchWeight, initial, desired) {
+        this.batchNumber = batchNumber;
         let initialWeight = this.getInitialWeight(batchWeight, initial, desired);
         if (initialWeight !== true) {
             return initialWeight
