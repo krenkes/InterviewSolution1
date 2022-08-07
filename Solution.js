@@ -59,7 +59,7 @@ let percentFinal = {}
 // calculates finalWeight, addWeightPerElement, and percentFinal
 for (let x in desired) {
     finalWeight[x] = desired[x]/100*ratioMax*batchWeight
-    addWeightPerElement[x] = Math.abs(Math.round((finalWeight[x] - initialWeight[x])*10000)/10000)
+    addWeightPerElement[x] = Math.abs(Math.round((finalWeight[x] - initialWeight[x])*100000)/100000)
     percentFinal[x]  = Math.round(100*finalWeight[x]/sumFinalWeight*10000)/10000
 }
 
